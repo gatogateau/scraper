@@ -1,0 +1,52 @@
+<div class="container">
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="/">Mongo Scraper</a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li class="active">
+                    <a id="homebtn nav-btns" href="/">Home</a>
+                </li>
+                <li>
+                    <a id="savedbtn nav-btns" href="/saved">Saved Articles</a>
+                </li>
+                <li>
+                    {{!-- scrape-new button needs added JS --}}
+                    <a id="scrapebtn nav-btns" class="btn btn-danger scrape-new">SCRAPE NEW ARTICLES!</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="jumbotron text-center">
+        <div class="overlay">
+        </div>
+        <div class="background-image">
+        </div>
+        <div class="caption">
+            <h1>Mongo Scraper</h1>
+            <p>New York Times Edition</p>
+        </div>
+    </div>
+    <div class="container-fluid article-container">
+    </div>
+    <h2>Articles</h2>
+    <ul>
+        {{#each scrapedData}}
+
+        <li>
+            {{this.title}}
+            <form action="scraper/delete/{{this._id}}?_method=DELETE" method="POST">
+                <input type="hidden" name="_id" value={{this._id}}>
+                <button id="goneGone" type="submit">Shred the Article</button>
+            </form>
+        </li>
+        {{/each}}
+    </ul>
+
+    <footer class="footer">
+        <div class="container">
+            <p>New York Times Mongo Scraper</p>
+        </div>
+    </footer>
+</div>

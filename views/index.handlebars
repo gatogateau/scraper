@@ -13,7 +13,7 @@
                 </li>
                 <li>
                     {{!-- scrape-new button needs added JS --}}
-                    <a id="scrapebtn nav-btns" class="btn btn-danger scrape-new">SCRAPE NEW ARTICLES!</a>
+                    <a id="scrapebtn nav-btns" class="btn btn-danger scrape-new" href="/scrape">SCRAPE NEW ARTICLES!</a>
                 </li>
             </ul>
         </div>
@@ -31,16 +31,74 @@
     <div class="container-fluid article-container">
     </div>
     <h2>Articles</h2>
+
+
+
+{{!-- Modal --}}
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">Recipient:</label>
+                            <input type="text" class="form-control" id="recipient-name">
+                        </div>
+                        <div class="form-group">
+                            <label for="message-text" class="col-form-label">Message:</label>
+                            <textarea class="form-control" id="message-text"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Send message</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+<a  id="previousPage" ><button class="primary-btn previousPage">Previous Page</button></a>
+<a  id="nextPage" ><button class="primary-btn nextPage">Next Page</button></a>
+
     <ul>
         {{#each scrapedData}}
 
         <li>
-            {{this.title}}
+            <h4>{{this.title}}</h4>
+            {{!-- <form action="scraper/all/{{this.id}}" method="GET">
+            <input type="hidden" name="link" value={{this.link}}>
+            <button id="url-link" type="submit">Get this article</button>
+            </form> --}}
+            {{!-- <br> --}}
+            <a class="btn-block btn-url btn" id="follow-url" href={{this.link}} >read the article</a>
+            <br>
+            {{!-- show the link if desired --}}
+            {{!-- {{this.link}} --}}
             <form action="scraper/delete/{{this._id}}?_method=DELETE" method="POST">
                 <input type="hidden" name="_id" value={{this._id}}>
-                <button id="goneGone" type="submit">Shred the Article</button>
+                <button id="goneGone" class="btn btn-delete btn-block" type="submit">Shred the Article</button>
+                {{!--
+                <button id="addNote" type="submit" data-articleID={{this._id}}>Add a note</button> --}}
             </form>
+            <br>
+
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-note btn-block" data-toggle="modal" data-target="#exampleModal" data-articleId={{this._id}}>Add a Note</button>
+
+        <br>
+        <br>
+
+
         </li>
+
         {{/each}}
     </ul>
 

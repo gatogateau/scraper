@@ -1,0 +1,39 @@
+
+
+
+.btn-url {
+    color:green;
+    background:lightgray;
+
+}
+
+.btn-delete {
+
+    color:blue;
+    background: lightblue;
+}
+
+.btn-note {
+    color: green;
+    background:lightgray;
+}
+
+#previousPage {
+    background:lightseagreen;
+
+}
+
+#nextPage {
+    background:lightseagreen;
+}
+
+.previousPage {
+    background: lightseagreen;
+    color:white;
+}
+
+.nextPage {
+    background:lightseagreen;
+    color:white;
+
+}

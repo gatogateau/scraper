@@ -51,26 +51,33 @@ db.on("error", function (error) {
 
 // Main route (simple Hello World Message)
 app.get("/", function (req, res) {
-    res.redirect("./allScraped");
+    res.redirect("/allScraped");
 });
 
- 
+// get call to capture all saved articles
+// app.get("/saved", function req, res) {
+//     db.scrapedData.find(function (error, found) {
+
+//     }
+// } 
 
 app.get("/allScraped", function (req, res) {
-    console.log(req.params, req.body);
+    // console.log(req.params, req.body);
     db.scrapedData.find(function (error, found) {
-
+        
         var hbsObject = {
             scrapedData: found
         };
         if (error) {
             console.log(error);
         } else {
-
-            // console.log(hbsObject);
+            var pg= parseInt(req.query.pg) || 1;
+            hbsObject.scrapedData = hbsObject.scrapedData.slice((pg*10)+((pg-2)*10), (((pg*10)+((pg-2)*10)))+20)
+            hbsObject=
             res.render("index", hbsObject);
+
         }
-        console.log ("working?");
+        // console.log ("working?");
     });
 });
 
@@ -125,7 +132,8 @@ app.get("/scrape", function (req, res) {
     });
 
     // Send a "Scrape Complete" message to the browser
-    res.send("Scrape Complete");
+    // res.send("Scrape Complete");
+    res.redirect("/allScraped");
 });
 
 var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";

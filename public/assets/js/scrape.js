@@ -1,3 +1,5 @@
+import { parse } from "url";
+
 $(document).ready(function () {
     var page = 1;
 
@@ -11,21 +13,67 @@ $(document).ready(function () {
         // modal.find('.modal-body input').val(articleId)
         
     });
+
+    function Querystring() {
+        var q = window.location.search.substr(1), qs = {};
+        if (q.length) {
+            var keys = q.split("&"), k, kv, key, val, v;
+            for (k = keys.length; k--;) {
+                kv = keys[k].split("=");
+                key = kv[0];
+                val = decodeURIComponent(kv[1]);
+                if (qs[key] === undefined) {
+                    qs[key] = val;
+                } else {
+                    v = qs[key];
+                    if (v.constructor !== Array) {
+                        qs[key] = [];
+                        qs[key].push(v);
+                    }
+                    qs[key].push(val);
+                }
+            }
+        }
+        return qs;
+    }
     
+    var pg = Querystring();
+    console.log(pg);
+
     $("#nextPage").on("click", function (e) {
         e.preventDefault();
-        // change to next page
-        window.location.pathname = '/allScraped/' + "&#63;" +'pg=' + page++;
-        page++
+
+        if(parseInt(pg.pg) >= 1)
+        {
+
+            parseInt(pg.pg)
+
+            pg.pg++
+
+            // change to next page
+            window.location = "?pg=" + pg.pg;
+        }
+
+        else{
+              // change to next page
+            window.location = "?pg=" + page;
+        }
+
+
+        
     });
     
     $("#previousPage").on("click", function () {
         // change to next page
-        if (pg <= 1) {
+        if (pg.pg < 1) {
             return;
         } else {
-            window.location.pathname = "/allScraped/&#63;pg=" + page--;
-            page--
+
+            parseInt(pg.pg)
+
+            pg.pg--
+
+            window.location = "?pg=" + pg.pg;
         }
     });
 });

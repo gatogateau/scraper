@@ -1,4 +1,4 @@
-import { parse } from "url";
+
 
 $(document).ready(function () {
     var page = 1;
@@ -40,6 +40,19 @@ $(document).ready(function () {
     var pg = Querystring();
     console.log(pg);
 
+
+    // disable button if on main page
+    
+    if(parseInt(pg.pg) <= 1)
+    {
+        $(".previousPage").prop('disabled', true);
+    }
+
+    else
+    {
+        $(".previousPage").prop('disabled', false);
+    }
+
     $("#nextPage").on("click", function (e) {
         e.preventDefault();
 
@@ -66,7 +79,7 @@ $(document).ready(function () {
     $("#previousPage").on("click", function () {
         // change to next page
         if (pg.pg < 1) {
-            return;
+            pg.pg=1;
         } else {
 
             parseInt(pg.pg)

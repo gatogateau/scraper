@@ -1,6 +1,21 @@
+.headerTitle {
+    font-size: 48px;
+}
 
+.navbar-brand {
+    font-size: 48px;
+}
+.navHeader {
+    color:antiquewhite;
+}
+ .navList {
+     font-size:20px;
+     background:darkslateblue;
+ }
 
-
+ .navBackground {
+     background:"./assetsk/images/NYTbackground.jpeg"
+ }
 .btn-url {
     color:green;
     background:lightgray;

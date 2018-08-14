@@ -7,7 +7,8 @@ var request = require("request");
 var cheerio = require("cheerio");
 var bodyParser = require("body-parser");
 var methodOverride = require("method-override");
-
+// listen on port 3001
+var PORT = process.env.PORT || 3001;
 
 // Initialize Express
 var app = express();
@@ -140,7 +141,7 @@ var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines
 mongoose.Promise = Promise;
 mongoose.connect(MONGODB_URI || "mongodb://localhost/mongoHeadlines");
 // Listen on port 3000
-app.listen(3000, function () {
+app.listen(PORT, function () {
     console.log("App running on port 3000!");
 });
 

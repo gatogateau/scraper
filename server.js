@@ -138,7 +138,7 @@ app.get("/scrape", function (req, res) {
 
 var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
 mongoose.Promise = Promise;
-mongoose.connect(MONGODB_URI);
+mongoose.connect(MONGODB_URI || "mongodb://localhost/mongoHeadlines");
 // Listen on port 3000
 app.listen(3000, function () {
     console.log("App running on port 3000!");

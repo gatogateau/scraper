@@ -8,7 +8,7 @@ var cheerio = require("cheerio");
 var bodyParser = require("body-parser");
 var methodOverride = require("method-override");
 // listen on port 3001
-var PORT = process.env.PORT || 3001;
+var PORT = process.env.PORT || 3000;
 
 // Initialize Express
 var app = express();
@@ -98,6 +98,26 @@ app.get("/all", function (req, res) {
     });
 });
 
+
+
+// not sure if this will work yet
+
+app.delete("scraper/delete", function (req, res) {
+    console.log (req.params);
+    db.scrapedData
+        .findByIdAndRemove({
+            _id: req.params.id
+        },
+        function (error, found) {
+            if (error) {
+                return res.status(500).send(error);
+            }
+           
+        });
+
+
+    });
+
 // Scrape data from one site and place it into the mongodb db
 app.get("/scrape", function (req, res) {
     // Make a request for the news section of `ycombinator`
@@ -137,12 +157,16 @@ app.get("/scrape", function (req, res) {
     res.redirect("/allScraped");
 });
 
-var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
+
+
+var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/NYTscraper";
 mongoose.Promise = Promise;
-mongoose.connect(MONGODB_URI || "mongodb://localhost/mongoHeadlines");
+mongoose.connect(MONGODB_URI);
+    
+// mongodb://localhost/mongoHeadlines
 // Listen on port 3000
 app.listen(PORT, function () {
-    console.log("App running on port 3000!");
+    console.log("App running on port: " +PORT);
 });
 
 
